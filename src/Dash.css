@@ -1,0 +1,46 @@
+.paddingall{
+  padding: 10px 10px 10px 10px;
+}
+
+.pricetitle{
+  font-weight: 600;
+  color: white;
+}
+
+.pricetitle2{
+  font-weight: 600;
+  color: black;
+}
+.pricesubtitle{
+  color: white;
+  font-size: 14px;
+}
+
+.iconstyle{
+  margin-top: 20px;
+  margin-left: 20px;
+  color: aliceblue;
+}
+
+.iconstyle2{
+  color: aliceblue;
+}
+.gradient{
+  background: rgb(53, 40, 119);
+  background: linear-gradient(158deg, rgb(85, 77, 125) 0%, rgb(106, 125, 230) 100%);
+}
+
+.gradientlight{
+  background: rgb(30, 82, 96);
+  background: linear-gradient(158deg, rgb(31, 69, 101) 0%, rgb(68, 199, 229) 100%);
+}
+
+.bgcolor{
+  min-height: 100vh;
+  background: #ECEFF1;
+  background: linear-gradient(158deg, rgb(224, 224, 224) 0%, rgb(233, 237, 254) 100%);
+}
+
+.custom-datagrid {
+  background-color: white;
+}
