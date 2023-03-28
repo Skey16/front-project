@@ -151,7 +151,6 @@ export default function Sidenav() {
                 </ListItemButton>
               </ListItem>        
         </List>
-        
       </Drawer>
     </Box>
   );
