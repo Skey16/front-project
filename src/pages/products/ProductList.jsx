@@ -104,7 +104,7 @@ export default function StickyHeadTable() {
                 Likes
               </TableCell>
               <TableCell align="left" style={{ wminWidth: "100px" }}>
-                Edit Delete
+               Action
               </TableCell>
             </TableRow>
           </TableHead>
@@ -161,7 +161,7 @@ export default function StickyHeadTable() {
         </Table>
       </TableContainer>
       <TablePagination
-        rowsPerPageOptions={[10, 25, 100]}
+        rowsPerPageOptions={[5, 10, 100]}
         component="div"
         count={rows.length}
         rowsPerPage={rowsPerPage}
