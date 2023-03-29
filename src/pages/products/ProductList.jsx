@@ -98,7 +98,7 @@ export default function StickyHeadTable() {
                 return (
                   <TableRow hover role="checkbox" tabIndex={-1}>
                     <TableCell key={row.id} align="left">
-                      {row.name}
+                      {row.productType}
                     </TableCell>
                   </TableRow>
                 );
