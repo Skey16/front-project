@@ -96,7 +96,7 @@ export default function StickyHeadTable() {
       </Typography>
       <Divider />
       <Box height={10} />
-      <Stack direction="row" spacing={2} className="my-2 mb-2">
+      <Stack direction="row" spacing={3} className="my-2 mb-2">
         <Autocomplete
           disablePortal
           id="combo-box-demo"
@@ -198,7 +198,7 @@ export default function StickyHeadTable() {
         </Table>
       </TableContainer>
       <TablePagination
-        rowsPerPageOptions={[5, 10, 100]}
+        rowsPerPageOptions={[3, 10, 50]}
         component="div"
         count={rows.length}
         rowsPerPage={rowsPerPage}
