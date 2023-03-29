@@ -15,7 +15,7 @@ import AddCircleIcon from "@mui/icons-material/AddCircle";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
-import { db } from "../../firebase-config"; 
+import { db } from "../../firebase-config";
 import {
   collection,
   getDocs,
@@ -30,15 +30,14 @@ import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 
 export default function StickyHeadTable() {
-  const [page, setPage] = useState(0)
-  const [rowsPerPage, setRowsPerPage] = useState([])
-  const [rows, setRows] = React.useState([])
-  const empCollectionRef = collection (db, "products");
-  
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState([]);
+  const [rows, setRows] = React.useState([]);
+  const empCollectionRef = collection(db, "products");
 
   useEffect(() => {
     getUsers();
-  },[]);
+  }, []);
 
   const getUsers = async () => {
     const data = await getDocs(empCollectionRef);
@@ -73,21 +72,39 @@ export default function StickyHeadTable() {
 
   return (
     <Paper sx={{ width: "100%", overflow: "hidden" }}>
+      <Typography
+        variant="h5"
+        component="div"
+        sx={{ padding: "20px" }}
+        className="custom-datagrid"
+      >
+        Product List
+      </Typography>
+      <Divider />
       <TableContainer sx={{ maxHeight: 440 }}>
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
-            <Typography
-              variant="h5"
-              component="div"
-              sx={{ padding: "20px" }}
-              className="custom-datagrid"
-            >
-              Product List
-            </Typography>
-            <Divider />
             <TableRow>
               <TableCell align="left" style={{ minWidth: "100px" }}>
+                ID
+              </TableCell>
+              <TableCell align="left" style={{ minWidth: "100px" }}>
                 Name
+              </TableCell>
+              <TableCell align="left" style={{ minWidth: "100px" }}>
+                Product Type
+              </TableCell>
+              <TableCell align="left" style={{ minWidth: "100px" }}>
+                Description
+              </TableCell>
+              <TableCell align="left" style={{ wminWidth: "100px" }}>
+                Price
+              </TableCell>
+              <TableCell align="left" style={{ wminWidth: "100px" }}>
+                Likes
+              </TableCell>
+              <TableCell align="left" style={{ wminWidth: "100px" }}>
+                Edit Delete
               </TableCell>
             </TableRow>
           </TableHead>
@@ -98,7 +115,44 @@ export default function StickyHeadTable() {
                 return (
                   <TableRow hover role="checkbox" tabIndex={-1}>
                     <TableCell key={row.id} align="left">
+                      {row.ID}
+                    </TableCell>
+                    <TableCell key={row.id} align="left">
+                      {row.name}
+                    </TableCell>
+                    <TableCell key={row.id} align="left">
                       {row.productType}
+                    </TableCell>
+                    <TableCell key={row.id} align="left">
+                      {row.description}
+                    </TableCell>
+                    <TableCell key={row.id} align="left">
+                      {row.price}
+                    </TableCell>
+                    <TableCell key={row.id} align="left">
+                      {row.likes}
+                    </TableCell>
+                    <TableCell align="left">
+                      <Stack spacing={2} direction="row">
+                        <EditIcon
+                          style={{
+                            fontSize: "20px",
+                            color: "blue",
+                            cursor: "pointer",
+                          }}
+                          className="cursor-pointer"
+                          //onClick={()=> editUser(row.id)}
+                        />
+                        <DeleteIcon
+                          style={{
+                            fontSize: "20px",
+                            color: "darkred",
+                            cursor: "pointer",
+                          }}
+                          className="cursor-pointer"
+                          //onClick={()=> deleteUser(row.id)}
+                        />
+                      </Stack>
                     </TableCell>
                   </TableRow>
                 );
