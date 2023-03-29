@@ -1,87 +1,120 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import * as React from "react";
-import { DataGrid } from "@mui/x-data-grid";
+import Paper from "@mui/material/Paper";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TablePagination from "@mui/material/TablePagination";
+import TableRow from "@mui/material/TableRow";
+import { Divider } from "@mui/material";
 import Typography from "@mui/material/Typography";
-import Divider from "@mui/material/Divider";
+import { useState, useEffect } from "react";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
+import Button from "@mui/material/Button";
+import Box from "@mui/material/Box";
+import Stack from "@mui/material/Stack";
+import { db } from "../../firebase-config"; 
+import {
+  collection,
+  getDocs,
+  updateDoc,
+  deleteDoc,
+  doc,
+} from "firebase/firestore";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
+import Swal from "sweetalert2";
+import TextField from "@mui/material/TextField";
+import Autocomplete from "@mui/material/Autocomplete";
 
-const columns = [
-  { field: "id", headerName: "ID", width: 40 },
-  { field: "firstName", headerName: "First name", width: 160 },
-  { field: "lastName", headerName: "Last name", width: 160 },
-  {
-    field: "age",
-    headerName: "Age",
-    type: "number",
-    width: 100,
-  },
-  {
-    field: "fullName",
-    headerName: "Full name",
-    description: "This column has a value getter and is not sortable.",
-    sortable: false,
-    width: 160,
+export default function StickyHeadTable() {
+  const [page, setPage] = useState(0)
+  const [rowsPerPage, setRowsPerPage] = useState([])
+  const [rows, setRows] = React.useState([])
+  const empCollectionRef = collection (db, "products");
+  
 
-    valueGetter: (params) =>
-      `${params.row.firstName || ""} ${params.row.lastName || ""}`,
-  },
-];
+  useEffect(() => {
+    getUsers();
+  },[]);
 
-const rows = [
-  { id: 1, lastName: "Snow", firstName: "Jon", age: 35 },
-  { id: 2, lastName: "Lannister", firstName: "Cersei", age: 42 },
-  { id: 3, lastName: "Lannister", firstName: "Jaime", age: 45 },
-  { id: 4, lastName: "Stark", firstName: "Arya", age: 16 },
-  { id: 5, lastName: "Targaryen", firstName: "Daenerys", age: 11 },
-  { id: 6, lastName: "Melisandre", firstName: "Carmona", age: 150 },
-  { id: 7, lastName: "Clifford", firstName: "Ferrara", age: 44 },
-  { id: 8, lastName: "Frances", firstName: "Rossini", age: 36 },
-  { id: 9, lastName: "Roxie", firstName: "Harvey", age: 65 },
-  { id: 10, lastName: "Roxie", firstName: "Harvey", age: 65 },
-  { id: 11, lastName: "Roxie", firstName: "Harvey", age: 65 },
-  { id: 12, lastName: "Roxie", firstName: "Harvey", age: 65 },
-  { id: 13, lastName: "Roxie", firstName: "Harvey", age: 65 },
-  { id: 14, lastName: "Roxie", firstName: "Harvey", age: 65 },
-  { id: 15, lastName: "Roxie", firstName: "Harvey", age: 65 },
-  { id: 16, lastName: "Roxie", firstName: "Harvey", age: 65 },
-  { id: 17, lastName: "Roxie", firstName: "Harvey", age: 65 },
-  { id: 18, lastName: "Roxie", firstName: "Harvey", age: 65 },
-  { id: 19, lastName: "Roxie", firstName: "Harvey", age: 65 },
-  { id: 20, lastName: "Roxie", firstName: "Harvey", age: 65 },
-  { id: 21, lastName: "Roxie", firstName: "Harvey", age: 65 },
-  { id: 22, lastName: "Roxie", firstName: "Harvey", age: 65 },
-  { id: 23, lastName: "Roxie", firstName: "Harvey", age: 65 },
-  { id: 24, lastName: "Roxie", firstName: "Harvey", age: 65 },
-  { id: 25, lastName: "Roxie", firstName: "Harvey", age: 65 },
-  { id: 26, lastName: "Roxie", firstName: "Harvey", age: 65 },
-  { id: 27, lastName: "Roxie", firstName: "Harvey", age: 65 },
-  { id: 28, lastName: "Roxie", firstName: "Harvey", age: 65 },
-  { id: 29, lastName: "Roxie", firstName: "Harvey", age: 65 },
-  { id: 30, lastName: "Roxie", firstName: "Harvey", age: 65 },
-  { id: 31, lastName: "Roxie", firstName: "Harvey", age: 65 },
-];
+  const getUsers = async () => {
+    const data = await getDocs(empCollectionRef);
+    setRows(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+  };
 
-export default function ProductList() {
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(+event.target.value);
+    setPage(0);
+  };
+
+  /*  const delete=(id)=>{
+    Swal.fire({
+    title:"Are you sure?",
+    text:"You won't be able to revert this!",
+    icon:"warning",
+    showCancelButton: true,
+    confirmButtonColor:"@3085d6",
+    cancelButtonColor:"d33",
+    confirmButtonText: "Yes, delete it!",
+    }).then.((result) => {
+    if ( result.value) {
+    deleteApi(id);
+    }
+    });
+    };
+    } */
+
   return (
-    /*  conts [rowsPerPage,setRowsPerPage]=React.useState(5); */
-
-    <div style={{ height: 500, width: "100%" }} >
-      <Typography
-        gutterBottom
-        variant="h5"
+    <Paper sx={{ width: "100%", overflow: "hidden" }}>
+      <TableContainer sx={{ maxHeight: 440 }}>
+        <Table stickyHeader aria-label="sticky table">
+          <TableHead>
+            <Typography
+              variant="h5"
+              component="div"
+              sx={{ padding: "20px" }}
+              className="custom-datagrid"
+            >
+              Product List
+            </Typography>
+            <Divider />
+            <TableRow>
+              <TableCell align="left" style={{ minWidth: "100px" }}>
+                Name
+              </TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {rows
+              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+              .map((row) => {
+                return (
+                  <TableRow hover role="checkbox" tabIndex={-1}>
+                    <TableCell key={row.id} align="left">
+                      {row.name}
+                    </TableCell>
+                  </TableRow>
+                );
+              })}
+          </TableBody>
+        </Table>
+      </TableContainer>
+      <TablePagination
+        rowsPerPageOptions={[10, 25, 100]}
         component="div"
-        sx={{ padding: "20px" }}
-        className="custom-datagrid"
-      >
-        Product List
-      </Typography>
-      <Divider/>
-      <DataGrid
-        rows={rows}
-        columns={columns}
-        pageSize={5}
-        rowsPerPageOptions={[5]}
-        checkboxSelection
-        className="custom-datagrid"
+        count={rows.length}
+        rowsPerPage={rowsPerPage}
+        page={page}
+        onPageChange={handleChangePage}
+        onRowsPerPageChange={handleChangeRowsPerPage}
       />
-    </div>
+    </Paper>
   );
 }
