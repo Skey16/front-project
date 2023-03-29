@@ -122,7 +122,7 @@ export default function Home() {
                 <Card sx={{ height: 60 + "vh" }}>
                   <CardContent>
                     <div className="paddingall">
-                     
+                    Popular Products                 
                     </div>
                     <AccordionDash />
                   </CardContent>

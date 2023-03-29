@@ -28,6 +28,7 @@ import Swal from "sweetalert2";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import Modal from "@mui/material/Modal";
+import AddProduct from "./AddProduct";
 
 const style = {
   position: "absolute",
@@ -104,17 +105,12 @@ export default function UsersList() {
       <div>
         <Modal
           open={open}
-          onClose={handleClose}
+          //onClose={handleClose}
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
         >
           <Box sx={style}>
-            <Typography id="modal-modal-title" variant="h6" component="h2">
-              Text in a modal
-            </Typography>
-            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-              Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-            </Typography>
+            <AddProduct closeEvent={handleClose} />
           </Box>
         </Modal>
       </div>
@@ -137,7 +133,7 @@ export default function UsersList() {
               options={rows}
               sx={{ width: 300 }}
               onChange={(e, v) => filterData(v)}
-              getOptionLabel={(rows) => rows.name|| ""}
+              getOptionLabel={(rows) => rows.name || ""}
               renderInput={(params) => (
                 <TextField {...params} size="small" label="Search Products" />
               )}
@@ -147,7 +143,11 @@ export default function UsersList() {
               component="div"
               sx={{ flexGrow: 1 }}
             ></Typography>
-            <Button variant="contained" endIcon={<AddCircleIcon />} onClick={handleOpen}>
+            <Button
+              variant="contained"
+              endIcon={<AddCircleIcon />}
+              onClick={handleOpen}
+            >
               Add
             </Button>
           </Stack>
