@@ -53,22 +53,21 @@ export default function StickyHeadTable() {
     setPage(0);
   };
 
-  /*  const delete=(id)=>{
+  const deleteUser = (id) => {
     Swal.fire({
-    title:"Are you sure?",
-    text:"You won't be able to revert this!",
-    icon:"warning",
-    showCancelButton: true,
-    confirmButtonColor:"@3085d6",
-    cancelButtonColor:"d33",
-    confirmButtonText: "Yes, delete it!",
-    }).then.((result) => {
-    if ( result.value) {
-    deleteApi(id);
-    }
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.value) {
+        //deleteApi(id);
+      }
     });
-    };
-    } */
+  };
 
   return (
     <Paper sx={{ width: "100%", overflow: "hidden" }}>
@@ -104,7 +103,7 @@ export default function StickyHeadTable() {
                 Likes
               </TableCell>
               <TableCell align="left" style={{ wminWidth: "100px" }}>
-               Action
+                Action
               </TableCell>
             </TableRow>
           </TableHead>
@@ -150,7 +149,7 @@ export default function StickyHeadTable() {
                             cursor: "pointer",
                           }}
                           className="cursor-pointer"
-                          //onClick={()=> deleteUser(row.id)}
+                          onClick={()=> deleteUser(row.id)}
                         />
                       </Stack>
                     </TableCell>
