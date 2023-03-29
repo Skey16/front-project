@@ -64,10 +64,17 @@ export default function StickyHeadTable() {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.value) {
-        //deleteApi(id);
+        deleteApi(id);
       }
     });
   };
+  const deleteApi = async (id)=>{
+    const userDoc = doc(db,"products",id);
+    await deleteDoc(userDoc);
+    Swal.fire("Deleted!", "Your file has been deleted.","success");
+    getUsers();
+    };
+    
 
   return (
     <Paper sx={{ width: "100%", overflow: "hidden" }}>
