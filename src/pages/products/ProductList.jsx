@@ -68,13 +68,21 @@ export default function StickyHeadTable() {
       }
     });
   };
-  const deleteApi = async (id)=>{
-    const userDoc = doc(db,"products",id);
+  const deleteApi = async (id) => {
+    const userDoc = doc(db, "products", id);
     await deleteDoc(userDoc);
-    Swal.fire("Deleted!", "Your file has been deleted.","success");
+    Swal.fire("Deleted!", "Your file has been deleted.", "success");
     getUsers();
-    };
-    
+  };
+
+  const filterData = (v) => {
+    if (v) {
+      setRows([v]);
+    } else {
+      setRows([]);
+      getUsers();
+    }
+  };
 
   return (
     <Paper sx={{ width: "100%", overflow: "hidden" }}>
@@ -87,6 +95,29 @@ export default function StickyHeadTable() {
         Product List
       </Typography>
       <Divider />
+      <Box height={10} />
+      <Stack direction="row" spacing={2} className="my-2 mb-2">
+        <Autocomplete
+          disablePortal
+          id="combo-box-demo"
+          options={rows}
+          sx={{ width: 300 }}
+          OnChange={(e, v) => filterData(v)}
+          getOptionLabel={(rows) => rows.name || ""}
+          renderInput={(params) => (
+            <TextField {...params} size="small" label="Search Products" />
+          )}
+        />
+        <Typography
+          variant="h6"
+          component="div"
+          sx={{ flexGrow: 1 }}
+        ></Typography>
+        <Button variant="contained" endIcon={<AddCircleIcon />}>
+          Add
+        </Button>
+      </Stack>
+      <Box height={10} />
       <TableContainer sx={{ maxHeight: 440 }}>
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
@@ -156,7 +187,7 @@ export default function StickyHeadTable() {
                             cursor: "pointer",
                           }}
                           className="cursor-pointer"
-                          onClick={()=> deleteUser(row.id)}
+                          onClick={() => deleteUser(row.id)}
                         />
                       </Stack>
                     </TableCell>
