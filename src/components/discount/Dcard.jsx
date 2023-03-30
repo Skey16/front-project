@@ -1,11 +1,13 @@
-import React from "react"
+import React, { useState, useEffect } from "react"
 import Slider from "react-slick"
 import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
 import Ddata from "./Ddata"
 import "../newarrivals/style.css"
 
-const Dcard = () => {
+const Dcard = ({search}) => {
+  const [listaFiltada, setListaFiltrada] = useState([])
+
   const settings = {
     dots: false,
     infinite: true,
@@ -13,12 +15,25 @@ const Dcard = () => {
     slidesToScroll: 1,
     autoplay: true,
   }
+
+
+  const filtrar = (search) => {
+    const filtrado = Ddata.filter(producto => producto.name.toLowerCase().includes(search.toLowerCase()))
+    setListaFiltrada(filtrado)
+  }
+
+  useEffect(() => {
+    filtrar(search)
+    
+  }, [search])
+  
+
   return (
     <>
       <Slider {...settings}>
-        {Ddata.map((value, index) => {
+        {listaFiltada.map((value, index) => {
           return (
-            <>
+            <div key={index}>
               <div className='box product' key={index}>
                 <div className='img'>
                   <img src={value.cover} alt='' width='100%' />
@@ -26,7 +41,7 @@ const Dcard = () => {
                 <h4>{value.name}</h4>
                 <span>{value.price}</span>
               </div>
-            </>
+            </div>
           )
         })}
       </Slider>

@@ -1,7 +1,7 @@
 import React from "react"
 import Dcard from "./Dcard"
 
-const Discount = () => {
+const Discount = ({ search }) => {
   return (
     <>
       <section className='Discount background NewArrivals'>
@@ -16,7 +16,7 @@ const Discount = () => {
               <i className='fa-solid fa-caret-right'></i>
             </div>
           </div>
-          <Dcard />
+          <Dcard search={search}/>
         </div>
       </section>
     </>

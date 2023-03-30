@@ -16,7 +16,7 @@ function App() {
 
   
   const [CartItem, setCartItem] = useState([])
-
+  const [search, setSearch] = useState('')
 
   const addToCart = (product) => {
 
@@ -44,10 +44,10 @@ function App() {
   return (
     <>
       <Router>
-        <Header CartItem={CartItem} />
+        <Header CartItem={CartItem} setSearch={setSearch}/>
         <Switch>
           <Route path='/' exact>
-            <Pages productItems={productItems} addToCart={addToCart} shopItems={shopItems} />
+            <Pages productItems={productItems} addToCart={addToCart} shopItems={shopItems} search={search}/>
           </Route>
           <Route path='/cart' exact>
             <Cart CartItem={CartItem} addToCart={addToCart} decreaseQty={decreaseQty} />

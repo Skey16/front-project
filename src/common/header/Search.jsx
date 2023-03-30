@@ -2,12 +2,16 @@ import React from "react"
 import logo from "../../components/assets/images/ambar.png"
 import { Link } from "react-router-dom"
 
-const Search = ({ CartItem }) => {
+const Search = ({ CartItem, setSearch }) => {
   // fixed Header
   window.addEventListener("scroll", function () {
     const search = document.querySelector(".search")
     search.classList.toggle("active", window.scrollY > 100)
   })
+
+  const handleChange = (e) => {
+    setSearch(e.target.value)
+  }
 
   return (
     <>
@@ -21,7 +25,7 @@ const Search = ({ CartItem }) => {
 
           <div className='search-box f_flex'>
             <i className='fa fa-search'></i>
-            <input type='text' placeholder='Search and hit enter...' />
+            <input type='text' placeholder='Search and hit enter...' name="search" onChange={handleChange}/>
             <span>All Category</span>
           </div>
 

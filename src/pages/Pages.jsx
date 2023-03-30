@@ -7,14 +7,14 @@ import Discount from "../components/discount/Discount"
 import Shop from "../components/shops/Shop"
 import Wrapper from "../components/wrapper/Wrapper"
 
-const Pages = ({ productItems, addToCart, CartItem, shopItems }) => {
+const Pages = ({ productItems, addToCart, CartItem, shopItems, search }) => {
   return (
     <>
       <Home CartItem={CartItem} />
       <FlashDeals productItems={productItems} addToCart={addToCart} />
       <TopCate />
       <NewArrivals />
-      <Discount />
+      <Discount search={search} />
       <Shop shopItems={shopItems} addToCart={addToCart} />
       <Wrapper />
     </>
