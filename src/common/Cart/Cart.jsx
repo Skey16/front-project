@@ -4,7 +4,7 @@ import "./style.css"
 import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
 
-const Cart = ({ CartItem, addToCart, decreaseQty }) => {
+const Cart = ({ CartItem, addToCart, decreaseQty, deleteAll }) => {
   // Stpe: 7   calucate total of items
   const totalPrice = CartItem.reduce((price, item) => price + item.qty * item.price, 0)
 
@@ -36,7 +36,7 @@ const Cart = ({ CartItem, addToCart, decreaseQty }) => {
                   </div>
                   <div className='cart-items-function'>
                     <div className='removeCart'>
-                      <button className='removeCart' >
+                      <button className='removeCart' onClick={() => deleteAll(item)}>
                         <i className='fa-solid fa-xmark'></i>
                       </button>
                     </div>

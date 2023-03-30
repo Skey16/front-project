@@ -4,7 +4,7 @@ import Slider from "react-slick"
 import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
 
-const SlideCard = () => {
+const SlideCard = ({index}) => {
   const settings = {
     dots: true,
     infinite: true,
@@ -17,7 +17,7 @@ const SlideCard = () => {
   }
   return (
     <>
-      <Slider {...settings}>
+      <Slider {...settings} >
         {Sdata.map((value, index) => {
           return (
             <>
