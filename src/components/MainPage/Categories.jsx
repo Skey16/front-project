@@ -20,16 +20,16 @@ const Categories = () => {
       cateName: "Decorations",
     },
     {
-      cateImg: "./images/category/cat4.png",
-      cateName: "Toys",
-    },
-    {
       cateImg: "./images/category/cat6.png",
       cateName: "Jewelry",
     },
     {
       cateImg: "./images/category/cat7.png",
       cateName: "Textiles",
+    },
+    {
+      cateImg: "./images/category/cat4.png",
+      cateName: "Toys",
     },
   ]
 
