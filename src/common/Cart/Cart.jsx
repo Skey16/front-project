@@ -7,7 +7,7 @@ import "slick-carousel/slick/slick-theme.css"
 const Cart = ({ CartItem, addToCart, decreaseQty, deleteAll }) => {
   // Stpe: 7   calucate total of items
   const totalPrice = CartItem.reduce((price, item) => price + item.qty * item.price, 0)
-
+  
   // prodcut qty total
   return (
     <>
@@ -66,9 +66,13 @@ const Cart = ({ CartItem, addToCart, decreaseQty, deleteAll }) => {
               <h3>${totalPrice}.00</h3>
             </div>
             <div>
-              <Link to='/checkout-page'>
-              <button className='btn-primary'>Buy now</button>
-              </Link>
+              { CartItem.length === 0 ? (
+                <button className='btn-secundary' disabled>Buy now</button>
+              ) : (
+                <Link to='/checkout-page' >
+                  <button className='btn-primary'>Buy now</button>
+                </Link>
+              )}
             </div>
           </div>
         </div>

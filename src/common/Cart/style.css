@@ -139,3 +139,10 @@
 .checkout-form button:hover {
   background-color: #0062cc;
 }
+.btn-secundary{
+  background: #e5cfd2;
+    padding: 13px 40px;
+    font-weight: bold;
+    color: #c4aaaa;
+    border-radius: 5px;
+}

@@ -38,7 +38,6 @@ const FlashCard = ({ productItems, addToCart }) => {
     prevArrow: <SamplePrevArrow />,
   }
 
-
   return (
     <>
       <Slider {...settings}>

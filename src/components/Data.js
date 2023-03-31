@@ -1,47 +1,32 @@
 const Data = {
   productItems: [
-    {
-      id: 1,
-      discount: 50,
-      cover: "./images/flash/flash-1.png",
-      name: "Shoes",
-      price: 100,
-    },
-    {
-      id: 2,
-      discount: 40,
-      cover: "./images/flash/flash-2.png",
-      name: "Watch",
-      price: 20,
-    },
-    {
-      id: 3,
-      discount: 40,
-      cover: "./images/flash/flash-3.png",
-      name: "Smart Mobile Black",
-      price: 200,
-    },
-    {
-      id: 4,
-      discount: 40,
-      cover: "./images/flash/flash-4.png",
-      name: "Smart Watch Black",
-      price: 50,
-    },
-    {
-      id: 5,
-      discount: 50,
-      cover: "./images/flash/flash-1.png",
-      name: "Shoes",
-      price: 100,
-    },
-    {
-      id: 6,
-      discount: 50,
-      cover: "./images/flash/flash-3.png",
-      name: "Shoes",
-      price: 100,
-    },
-  ],
+      {
+        id: 1,
+        name: 'Producto 1',
+        productType: 'Tipo 1',
+        price: 10.99,
+        like: 4,
+        image: 'https://ejemplo.com/imagen1.jpg',
+        description: 'Este es el producto 1.'
+      },
+      {
+        id: 2,
+        name: 'Producto 2',
+        productType: 'Tipo 2',
+        price: 20.99,
+        like: 2,
+        image: 'https://ejemplo.com/imagen2.jpg',
+        description: 'Este es el producto 2.'
+      },
+      {
+        id: 3,
+        name: 'Producto 3',
+        productType: 'Tipo 1',
+        price: 15.99,
+        like: 7,
+        image: 'https://ejemplo.com/imagen3.jpg',
+        description: 'Este es el producto 3.'
+      }
+    ],    
 }
 export default Data
