@@ -1,6 +1,7 @@
 import React from "react"
 import logo from "../../components/assets/images/ambar.png"
 import { Link } from "react-router-dom"
+import '../header/Header.css'
 
 const Search = ({ CartItem, setSearch }) => {
   // fixed Header

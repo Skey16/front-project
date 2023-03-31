@@ -1,5 +1,4 @@
 import React from "react"
-import Catg from "./Catg"
 import ShopCart from "./ShopCart"
 import "./style.css"
 
@@ -8,8 +7,6 @@ const Shop = ({ addToCart, shopItems }) => {
     <>
       <section className='shop background'>
         <div className='container d_flex'>
-         
-
           <div className='contentWidth'>
             <div className='heading d_flex'>
               <div className='heading-left row  f_flex'>

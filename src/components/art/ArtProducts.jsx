@@ -3,7 +3,7 @@ import Slider from "react-slick"
 import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
 import Ddata from "../discount/Ddata"
-import "../newarrivals/style.css"
+import "../style.css"
 
 const ArtProducts = ({search}) => {
   const [listaFiltada, setListaFiltrada] = useState([])
@@ -17,9 +17,12 @@ const ArtProducts = ({search}) => {
   }
 
   const filtrar = (search) => {
-    const filtrado = Ddata.filter(producto => producto.name.toLowerCase().includes(search.toLowerCase()))
-    setListaFiltrada(filtrado)
-  }
+    const filtrado = Ddata.filter(producto =>
+      producto.name.toLowerCase().includes(search.toLowerCase()) &&
+      producto.productType === "art"
+    );
+    setListaFiltrada(filtrado);
+  };
 
   useEffect(() => {
     filtrar(search)
