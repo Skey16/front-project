@@ -29,6 +29,7 @@ import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import Modal from "@mui/material/Modal";
 import AddProduct from "./AddProduct";
+import EditProduct from "./EditProduct";
 
 const style = {
   position: "absolute",
@@ -48,8 +49,12 @@ export default function UsersList() {
   const [rows, setRows] = useState([]);
   const empCollectionRef = collection(db, "products");
   const [open, setOpen] = useState(false);
+  const [editopen, setEditOpen] = useState(false);
+  const {formid,setFormid} = useState("");
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const handleEditOpen = () => setOpen(true);
+  const handleEditClose = () => setOpen(false);
 
   useEffect(() => {
     getUsers();
@@ -100,6 +105,29 @@ export default function UsersList() {
     }
   };
 
+  const editData = (
+    id,
+    ID,
+    name,
+    productType,
+    description,
+    price,
+    pieces,
+    likes
+  ) => {
+    const data = {
+      ID: ID,
+      name: name,
+      productType: productType,
+      description: description,
+      price: price,
+      pieces: pieces,
+      likes: likes,
+    };
+    setFormid(data);
+    handleEditOpen();
+  };
+
   return (
     <>
       <div>
@@ -111,6 +139,16 @@ export default function UsersList() {
         >
           <Box sx={style}>
             <AddProduct closeEvent={handleClose} />
+          </Box>
+        </Modal>
+        <Modal
+          open={editopen}
+          //onClose={handleClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box sx={style}>
+            <EditProduct closeEvent={handleEditClose} fid={formid} />
           </Box>
         </Modal>
       </div>
@@ -210,6 +248,17 @@ export default function UsersList() {
                               }}
                               className="cursor-pointer"
                               // onClick={() => editUser(row.id)}
+                              onClick={() => {
+                                editData(
+                                  row.id,
+                                  row.ID,
+                                  row.name,
+                                  row.productType,
+                                  row.price,
+                                  row.pieces,
+                                  row.likes
+                                );
+                              }}
                             />
                             <DeleteIcon
                               style={{
