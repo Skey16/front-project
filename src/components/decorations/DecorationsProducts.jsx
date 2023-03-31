@@ -11,7 +11,7 @@ const DecorationsProducts = ({search}) => {
   const settings = {
     dots: false,
     infinite: false,
-    slidesToShow: 3,
+    slidesToShow: 5,
     slidesToScroll: 1,
     autoplay: true,
   }

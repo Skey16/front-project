@@ -1,6 +1,6 @@
 import React from "react"
 import AccessoriesProducts from './AccessoriesProducts'
-import "../style.css"
+import "./style.css"
 
 const Accessories = ({ search }) => {
   return (

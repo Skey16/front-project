@@ -5,26 +5,33 @@ const Catg = () => {
     {
       cateImg: "./images/category/cat-1.png",
       cateName: "Apple",
+      description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus tempora fugit ullam repellendus rerum voluptatem, doloribus voluptate architecto excepturi? Quae."
+
     },
     {
       cateImg: "./images/category/cat-2.png",
       cateName: "Samasung",
+      description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus tempora fugit ullam repellendus rerum voluptatem, doloribus voluptate architecto excepturi? Quae."
     },
     {
       cateImg: "./images/category/cat-1.png",
       cateName: "Oppo",
+      description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus tempora fugit ullam repellendus rerum voluptatem, doloribus voluptate architecto excepturi? Quae."
     },
     {
       cateImg: "./images/category/cat-2.png",
       cateName: "Vivo",
+      description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus tempora fugit ullam repellendus rerum voluptatem, doloribus voluptate architecto excepturi? Quae."
     },
     {
       cateImg: "./images/category/cat-1.png",
       cateName: "Redimi",
+      description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus tempora fugit ullam repellendus rerum voluptatem, doloribus voluptate architecto excepturi? Quae."
     },
     {
       cateImg: "./images/category/cat-2.png",
       cateName: "Sony",
+      description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus tempora fugit ullam repellendus rerum voluptatem, doloribus voluptate architecto excepturi? Quae."
     },
   ]
   return (

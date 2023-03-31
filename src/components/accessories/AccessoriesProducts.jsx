@@ -11,15 +11,18 @@ const AccessoriesProducts = ({search}) => {
   const settings = {
     dots: false,
     infinite: false,
-    slidesToShow: 3,
+    slidesToShow: 5,
     slidesToScroll: 1,
     autoplay: true,
   }
-
   const filtrar = (search) => {
-    const filtrado = Ddata.filter(producto => producto.name.toLowerCase().includes(search.toLowerCase()))
-    setListaFiltrada(filtrado)
-  }
+  const filtrado = Ddata.filter(producto =>
+    producto.name.toLowerCase().includes(search.toLowerCase()) &&
+    producto.productType === "accessories"
+  );
+  setListaFiltrada(filtrado);
+};
+
 
   useEffect(() => {
     filtrar(search)
