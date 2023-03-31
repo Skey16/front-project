@@ -8,10 +8,10 @@ import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 import { Button } from "@mui/material";
 import InputAdornment from "@mui/material/InputAdornment";
-import MenuItem from "@mui/material/MenuItem";
 import { collection, addDoc, getDocs } from "firebase/firestore";
 import { db } from "../../firebase-config";
 import Swal from "sweetalert2";
+import { useAppStore } from "../../appStore";
 /* import Button from "@mui/material/Button"; */
 //import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
 
@@ -23,7 +23,7 @@ export default function AddProduct({ closeEvent }) {
   const [likes, setLikes] = useState(0);
   const [ID, setID] = useState(0);
   const [productType, setProductType] = useState("");
-  const [rows, setRows] = useState([]);
+  const setRows = useAppStore((state)=> state.setRows);
   const empCollectionRef = collection(db, "products");
 
   const handleNameChange = (event) => {

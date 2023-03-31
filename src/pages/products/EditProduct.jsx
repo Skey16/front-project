@@ -8,9 +8,10 @@ import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 import { Button } from "@mui/material";
 import InputAdornment from "@mui/material/InputAdornment";
-import { collection, addDoc, getDocs } from "firebase/firestore";
+import { collection, updateDoc,addDoc, getDocs, doc, get } from "firebase/firestore";
 import { db } from "../../firebase-config";
 import Swal from "sweetalert2";
+import { useAppStore } from "../../appStore";
 /* import Button from "@mui/material/Button"; */
 //import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
 
@@ -22,8 +23,20 @@ export default function EditProduct({fid, closeEvent }) {
   const [likes, setLikes] = useState(0);
   const [ID, setID] = useState(0);
   const [productType, setProductType] = useState("");
-  const [rows, setRows] = useState([]);
+  const setRows = useAppStore((state)=> state.setRows);
   const empCollectionRef = collection(db, "products");
+
+
+  useEffect(()=>{
+    console.log("FID: " + fid.id);
+    setID(fid.ID);
+    setName(fid.name);
+    setDescription(fid.description);
+    setPieces(fid.pieces);
+    setPrice(fid.price);
+    setLikes(fid.likes);
+    setProductType(fid.productType);
+  },[]);
 
   const handleNameChange = (event) => {
     setName(event.target.value);
@@ -49,7 +62,8 @@ export default function EditProduct({fid, closeEvent }) {
   };
 
   const createUser = async () => {
-    await addDoc(empCollectionRef, {
+    const userDoc = doc(db, "products",fid.id);
+    const newFields = {
       ID: Number(ID),
       name: name,
       productType: productType,
@@ -57,10 +71,11 @@ export default function EditProduct({fid, closeEvent }) {
       price: Number(price),
       pieces: Number(pieces),
       likes: Number(likes),
-    });
+    }
+    await updateDoc(userDoc,newFields);
     getUsers();
     closeEvent();
-    Swal.fire("Submitted!", "You file has been submitted.", "success");
+    Swal.fire("Submitted!", "You file has been update.", "success");
   };
 
   const getUsers = async () => {
@@ -180,4 +195,3 @@ export default function EditProduct({fid, closeEvent }) {
     </>
   );
 }
-

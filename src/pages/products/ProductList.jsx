@@ -30,6 +30,7 @@ import Autocomplete from "@mui/material/Autocomplete";
 import Modal from "@mui/material/Modal";
 import AddProduct from "./AddProduct";
 import EditProduct from "./EditProduct";
+import { useAppStore } from "../../appStore";
 
 const style = {
   position: "absolute",
@@ -43,18 +44,21 @@ const style = {
   p: 4,
 };
 
+
+
 export default function UsersList() {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
-  const [rows, setRows] = useState([]);
   const empCollectionRef = collection(db, "products");
   const [open, setOpen] = useState(false);
   const [editopen, setEditOpen] = useState(false);
-  const {formid,setFormid} = useState("");
+  const [formid,setFormid] = useState("");
   const handleOpen = () => setOpen(true);
+  const handleEditOpen = () => setEditOpen(true);
   const handleClose = () => setOpen(false);
-  const handleEditOpen = () => setOpen(true);
-  const handleEditClose = () => setOpen(false);
+  const handleEditClose = () => setEditOpen(false);
+  const setRows = useAppStore((state) => state.setRows);
+  const rows = useAppStore((state) => state.rows);
 
   useEffect(() => {
     getUsers();
@@ -105,28 +109,30 @@ export default function UsersList() {
     }
   };
 
-  const editData = (
-    id,
-    ID,
-    name,
-    productType,
-    description,
-    price,
-    pieces,
-    likes
-  ) => {
-    const data = {
-      ID: ID,
-      name: name,
-      productType: productType,
-      description: description,
-      price: price,
-      pieces: pieces,
-      likes: likes,
-    };
-    setFormid(data);
-    handleEditOpen();
+  
+const editData = (
+  id,
+  ID,
+  name,
+  productType,
+  description,
+  price,
+  pieces,
+  likes
+) => {
+  const data = {
+    id:id,
+    ID: ID,
+    name: name,
+    productType: productType,
+    description: description,
+    price: price,
+    pieces: pieces,
+    likes: likes,
   };
+  setFormid(data);
+  handleEditOpen();
+};
 
   return (
     <>
@@ -141,6 +147,7 @@ export default function UsersList() {
             <AddProduct closeEvent={handleClose} />
           </Box>
         </Modal>
+
         <Modal
           open={editopen}
           //onClose={handleClose}
@@ -148,7 +155,7 @@ export default function UsersList() {
           aria-describedby="modal-modal-description"
         >
           <Box sx={style}>
-            <EditProduct closeEvent={handleEditClose} fid={formid} />
+            <EditProduct closeEvent={ handleEditClose} fid={formid} />
           </Box>
         </Modal>
       </div>
