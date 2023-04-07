@@ -6,7 +6,8 @@ const Sdata = {
         name: "Mapple Earphones",
         price: "180",
         discount: "25",
-        description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus tempora fugit ullam repellendus rerum voluptatem, doloribus voluptate architecto excepturi? Quae.",
+        like: 0,
+        description: "Lorem ipsum dolor sit amet ibus voluptate architecto excepturi? Quae.",
       },
       {
         id: 8,
@@ -14,6 +15,7 @@ const Sdata = {
         name: "Vivo android one",
         price: "120",
         discount: "10",
+        like: 0,
         description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus tempora fugit ullam repellendus rerum voluptatem, doloribus voluptate architecto excepturi? Quae.",
       },
       {
@@ -22,6 +24,7 @@ const Sdata = {
         name: "Sony Light",
         price: "20",
         discount: "50 ",
+        like: 0,
         description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus tempora fugit ullam repellendus rerum voluptatem, doloribus voluptate architecto excepturi? Quae.",
       },
       {
@@ -30,6 +33,7 @@ const Sdata = {
         name: "Iphone",
         price: "999",
         discount: "10 ",
+        like: 0,
         description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus tempora fugit ullam repellendus rerum voluptatem, doloribus voluptate architecto excepturi? Quae.",
       },
       {
@@ -38,7 +42,8 @@ const Sdata = {
         name: "Ceats wireless earphone",
         price: "80",
         discount: "20 ",
-        description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus tempora fugit ullam repellendus rerum voluptatem, doloribus voluptate architecto excepturi? Quae.",
+        like: 0,
+        description: "Lorem ipsum dolor sibus voluptate architecto excepturi? Quae.",
       },
       {
         id: 12,
@@ -46,6 +51,7 @@ const Sdata = {
         name: "Redimi Phone",
         price: "400",
         discount: "20 ",
+        like: 0,
         description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus tempora fugit ullam repellendus rerum voluptatem, doloribus voluptate architecto excepturi? Quae.",
       },
     ],

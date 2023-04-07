@@ -30,8 +30,6 @@ const CheckoutPage = () => {
       alert("La fecha de vencimiento no puede ser anterior a la fecha actual.");
       return;
     }
-  
-    // Aquí puedes validar los datos del formulario antes de redirigir
     history.push("/");
   };
   

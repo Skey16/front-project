@@ -58,3 +58,26 @@
     box-shadow: rgb(43 52 69 / 10%) 0px 4px 16px;
   }
   
+  .shopCart .img:hover .info{
+    opacity: 1;
+  }
+
+  .shopCart .info{
+    position: absolute;
+    overflow: hidden;
+    width: 270px;
+    height: 150px;
+    background-color: rgba(31, 31, 31, 0.9);
+    --webkit-transition: opacity 0.2s;
+    opacity: 0;
+  }
+
+  .shopCart .description{
+    position: absolute;
+    margin-left: -70px;
+    font-size: 21px;
+  }
+
+  .shopCart img:hover p.description{
+    margin-left: 70px;
+  }

@@ -19,7 +19,7 @@ const CeramicsProducts = ({search}) => {
   const filtrar = (search) => {
     const filtrado = Ddata.filter(producto =>
       producto.name.toLowerCase().includes(search.toLowerCase()) &&
-      producto.productType === "ceramics"
+      producto.productType === "ceramic"
     );
     setListaFiltrada(filtrado);
   };
