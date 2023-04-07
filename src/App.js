@@ -8,12 +8,14 @@ import Cart from "./common/Cart/Cart"
 import Footer from "./common/footer/Footer"
 import Sdata from "./components/shops/Sdata"
 import CheckoutPage from "./common/Cart/CheckoutPage";
+import ArtPage from "./components/MainPage/ArtPage";
+
 
 function App() {
  
   const { productItems } = Data
   const { shopItems } = Sdata
-
+  
   
   const [CartItem, setCartItem] = useState([])
   const [search, setSearch] = useState('')
@@ -58,6 +60,9 @@ function App() {
           </Route>
           <Route path='/checkout-page' exact>
             <CheckoutPage/>
+          </Route>
+          <Route path='/art-page' exact>
+            <ArtPage shopItems={shopItems} addToCart={addToCart}/>
           </Route>
         </Switch>
         <Footer />
