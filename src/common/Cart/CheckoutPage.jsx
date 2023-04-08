@@ -2,9 +2,8 @@ import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import "./style.css";
 
-const CheckoutPage = () => {
-
-    const [ setExpiryDate] = useState("");
+const CheckoutPage = ({clearCart }) => {
+  const [expiryDate, setExpiryDate] = useState("");
 
   const [formData, setFormData] = useState({
     name: "",
@@ -21,18 +20,18 @@ const CheckoutPage = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    
     // Validar que la fecha de vencimiento no ha llegado
-    const [expiryMonth, expiryYear] = formData.expiryDate.split("/");
+    const [expiryMonth, expiryYear] = expiryDate.split("/");
     const today = new Date();
-    const expiry = new Date(expiryYear, expiryMonth - 1);
+    const expiry = new Date(parseInt(expiryYear), parseInt(expiryMonth) - 1, 1);
     if (expiry < today) {
-      alert("La fecha de vencimiento no puede ser anterior a la fecha actual.");
+      alert("La tarjeta ha expirado. Por favor, ingrese otra tarjeta.");
       return;
     }
+    // Aquí puedes validar los datos del formulario antes de redirigir
+    clearCart();// Borra los elementos del carrito en caso de no funcionar eliminar esta linea
     history.push("/");
   };
-  
 
   const handleInputChange = (event) => {
     setExpiryDate(event.target.value);
@@ -66,7 +65,7 @@ const CheckoutPage = () => {
         </div>
         <div className="form-group">
           <label htmlFor="cardNumber">Card Number</label>
-          <input type="text" id="cardNumber" required pattern="[0-9]*" onChange={handleInputChange} />
+          <input type="text" id="cardNumber"  required pattern="[0-9]{16,18,20}" onChange={handleInputChange} />
         </div>
         <div className="form-group">
           <label htmlFor="expiryDate">Expiry Date</label>
@@ -74,7 +73,7 @@ const CheckoutPage = () => {
         </div>
         <div className="form-group">
           <label htmlFor="cvv">CVV</label>
-          <input type="text" id="cvv" required pattern="[0-9]*" onChange={handleInputChange} />
+          <input type="text" id="cvv"  required onChange={handleInputChange} />
         </div>
         <button type="submit" className="checkout-btn">
           Pay Now

@@ -50,6 +50,10 @@ function App() {
     setCartItem(CartItem.filter((item) => item.id !== product.id))
   }
 
+  const clearCart = () => {
+    setCartItem();
+  };
+
   return (
     <>
       <Router>
@@ -62,7 +66,7 @@ function App() {
             <Cart CartItem={CartItem} addToCart={addToCart} decreaseQty={decreaseQty} deleteAll={deleteAll}/>
           </Route>
           <Route path='/checkout-page' exact>
-            <CheckoutPage/>
+            <CheckoutPage clearCart={clearCart}/>
           </Route>
           <Route path='/accessories-page' exact>
             <AccessoriesPage shopItems={shopItems} addToCart={addToCart} search={search}/>
