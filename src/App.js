@@ -3,17 +3,20 @@ import "./App.css"
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
 import Header from "./common/header/Header"
 import Pages from "./pages/Pages"
-import Data from "./components/Data"
 import Cart from "./common/Cart/Cart"
 import Footer from "./common/footer/Footer"
 import Sdata from "./components/shops/Sdata"
-import CheckoutPage from "./common/Cart/CheckoutPage";
-import ArtPage from "./components/MainPage/ArtPage";
-
+import CheckoutPage from "./common/Cart/CheckoutPage"
+import AccessoriesPage from "./components/MainPage/AccessoriesPage"
+import ArtPage from "./components/MainPage/ArtPage"
+import CeramicsPage from "./components/MainPage/CeramicsPage"
+import DecorationsPage from "./components/MainPage/DecorationsPage"
+import JewelryPage from "./components/MainPage/JewelryPage"
+import TextilesPage from "./components/MainPage/TextilesPage"
+import ToysPage from "./components/MainPage/ToysPage"
 
 function App() {
  
-  const { productItems } = Data
   const { shopItems } = Sdata
   
   
@@ -53,7 +56,7 @@ function App() {
         <Header CartItem={CartItem} setSearch={setSearch}/>
         <Switch>
           <Route path='/' exact>
-            <Pages productItems={productItems} addToCart={addToCart} shopItems={shopItems} search={search}/>
+            <Pages  addToCart={addToCart} shopItems={shopItems} search={search}/>
           </Route>
           <Route path='/cart' exact>
             <Cart CartItem={CartItem} addToCart={addToCart} decreaseQty={decreaseQty} deleteAll={deleteAll}/>
@@ -61,8 +64,26 @@ function App() {
           <Route path='/checkout-page' exact>
             <CheckoutPage/>
           </Route>
+          <Route path='/accessories-page' exact>
+            <AccessoriesPage shopItems={shopItems} addToCart={addToCart} search={search}/>
+          </Route>
           <Route path='/art-page' exact>
-            <ArtPage shopItems={shopItems} addToCart={addToCart}/>
+            <ArtPage shopItems={shopItems} addToCart={addToCart} search={search}/>
+          </Route>
+          <Route path='/ceramics-page' exact>
+            <CeramicsPage shopItems={shopItems} addToCart={addToCart} search={search}/>
+          </Route>
+          <Route path='/decorations-page' exact>
+            <DecorationsPage shopItems={shopItems} addToCart={addToCart} search={search}/>
+          </Route>
+          <Route path='/jewelry-page' exact>
+            <JewelryPage shopItems={shopItems} addToCart={addToCart} search={search}/>
+          </Route>
+          <Route path='/textiles-page' exact>
+            <TextilesPage shopItems={shopItems} addToCart={addToCart} search={search}/>
+          </Route>
+          <Route path='/toys-page' exact>
+            <ToysPage shopItems={shopItems} addToCart={addToCart} search={search}/>
           </Route>
         </Switch>
         <Footer />

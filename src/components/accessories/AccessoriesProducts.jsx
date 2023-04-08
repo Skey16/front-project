@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react"
 import Slider from "react-slick"
 import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
-import Ddata from "../discount/Ddata"
 import "../style.css"
+import Sdata from "../shops/Sdata"
 
 const AccessoriesProducts = ({search}) => {
   const [listaFiltada, setListaFiltrada] = useState([])
@@ -15,14 +15,14 @@ const AccessoriesProducts = ({search}) => {
     slidesToScroll: 1,
     autoplay: true,
   }
-  const filtrar = (search) => {
-  const filtrado = Ddata.filter(producto =>
-    producto.name.toLowerCase().includes(search.toLowerCase()) &&
-    producto.productType === "accessory"
-  );
-  setListaFiltrada(filtrado);
-};
 
+  const filtrar = (search) => {
+    const filtrado = Sdata.shopItems.filter(producto =>
+      producto.name.toLowerCase().includes(search.toLowerCase()) &&
+      producto.productType === "accessory"
+    );
+    setListaFiltrada(filtrado);
+  };
 
   useEffect(() => {
     filtrar(search)
@@ -47,5 +47,4 @@ const AccessoriesProducts = ({search}) => {
     </>
   )
 }
-
 export default AccessoriesProducts

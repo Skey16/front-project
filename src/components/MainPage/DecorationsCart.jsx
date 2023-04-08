@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./style.css";
 
-const ArtCart = ({ shopItems, addToCart, search }) => {
+const DecorationsCart = ({ shopItems, addToCart, search }) => {
   const [count, setCount] = useState(0);
 
   const increment = () => {
@@ -13,7 +13,7 @@ const ArtCart = ({ shopItems, addToCart, search }) => {
       {shopItems
         .filter(
           (item) =>
-            item.productType === "art" &&
+            item.productType === "decoration" &&
             item.name.toLowerCase().includes(search.toLowerCase())
         )
         .map((item, index) => (
@@ -46,4 +46,4 @@ const ArtCart = ({ shopItems, addToCart, search }) => {
   );
 };
 
-export default ArtCart;
+export default DecorationsCart;

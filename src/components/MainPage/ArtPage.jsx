@@ -2,7 +2,7 @@ import React from "react"
 import ArtCart from "./ArtCart"
 import "./style.css"
 
-const ArtPage = ({ addToCart, shopItems }) => {
+const ArtPage = ({ addToCart, shopItems, search }) => {
   return (
     <>
       <section className='shop background'>
@@ -14,7 +14,7 @@ const ArtPage = ({ addToCart, shopItems }) => {
               </div>
             </div>
             <div className='product-content  grid1'>
-              <ArtCart addToCart={addToCart} shopItems={shopItems} />
+              <ArtCart addToCart={addToCart} shopItems={shopItems} search={search}/>
             </div>
           </div>
         </div>

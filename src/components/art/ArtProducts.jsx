@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react"
 import Slider from "react-slick"
 import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
-import Ddata from "../discount/Ddata"
+import Sdata from "../shops/Sdata"
 import "../style.css"
 
 const ArtProducts = ({search}) => {
@@ -17,7 +17,7 @@ const ArtProducts = ({search}) => {
   }
 
   const filtrar = (search) => {
-    const filtrado = Ddata.filter(producto =>
+    const filtrado = Sdata.shopItems.filter(producto =>
       producto.name.toLowerCase().includes(search.toLowerCase()) &&
       producto.productType === "art"
     );
@@ -47,5 +47,4 @@ const ArtProducts = ({search}) => {
     </>
   )
 }
-
 export default ArtProducts

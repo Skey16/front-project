@@ -1,8 +1,8 @@
 import React from "react"
-import ShopCart from "./ShopCart"
+import JewelryCart from "./JewelryCart"
 import "./style.css"
 
-const Shop = ({ addToCart, shopItems, search }) => {
+const JewelryPage = ({ addToCart, shopItems, search }) => {
   return (
     <>
       <section className='shop background'>
@@ -10,11 +10,11 @@ const Shop = ({ addToCart, shopItems, search }) => {
           <div className='contentWidth'>
             <div className='heading d_flex'>
               <div className='heading-left row  f_flex'>
-                <h2>Mobile Phones</h2>
+                <h2>Jewelry</h2>
               </div>
             </div>
             <div className='product-content  grid1'>
-              <ShopCart addToCart={addToCart} shopItems={shopItems} search={search}/>
+              <JewelryCart addToCart={addToCart} shopItems={shopItems} search={search}/>
             </div>
           </div>
         </div>
@@ -23,4 +23,4 @@ const Shop = ({ addToCart, shopItems, search }) => {
   )
 }
 
-export default Shop
+export default JewelryPage
