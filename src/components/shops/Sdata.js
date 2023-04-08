@@ -6,7 +6,7 @@ const Sdata = {
         name: "Playera - Guardianes",
         price: "330",
         productType: "textil",
-        like: 2,
+        like: 22,
         description: "Playera de algodón con estampado Huichol (Guardianes)"
       },
       {
@@ -96,7 +96,7 @@ const Sdata = {
         name: "Trompo mediano multicolor",
         price: "50",
         productType: "toy",
-        like: 2,
+        like: 32,
         description: "Trompo de madera mediano, juguete tradicional mexicano"
       },
       {
@@ -150,7 +150,7 @@ const Sdata = {
         name: "Balero Grandre",
         price: "250",
         productType: "toy",
-        like: 2,
+        like: 73,
         description: "Balero de madera mini, juguete tradicional mexicano"
       },
       {
@@ -267,7 +267,7 @@ const Sdata = {
         name: "Diadema de chaquira verde",
         price: "450",
         productType: "accessory",
-        like: 2,
+        like: 82,
         description: "Diadema para el cabello realizada por los huicholes de Nayarit."
       },
       {

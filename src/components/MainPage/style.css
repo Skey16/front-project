@@ -81,3 +81,17 @@
   .shopCart img:hover p.description{
     margin-left: 70px;
   }
+
+  .fa-heart:hover {
+    color: rgb(176, 14, 14);
+  }
+  
+  .fa-heart.liked {
+    color: rgb(189, 4, 4);
+  }
+  .right img {
+    width: 50%;
+    float: left;
+    margin-right: 30px;
+  }
+  

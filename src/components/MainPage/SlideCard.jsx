@@ -1,10 +1,15 @@
 import React from "react"
-import Sdata from "./Sdata"
+import Sdata from "../shops/Sdata";
 import Slider from "react-slick"
 import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
+import { Link } from "react-router-dom";
 
 const SlideCard = ({index}) => {
+  const topProducts = Sdata.shopItems
+    .sort((a, b) => b.like - a.like) // ordena los productos por número de likes de mayor a menor
+    .slice(0, 4); // toma los cuatro primeros productos de la lista ordenada
+
   const settings = {
     dots: true,
     infinite: true,
@@ -18,17 +23,45 @@ const SlideCard = ({index}) => {
   return (
     <>
       <Slider {...settings} >
-        {Sdata.map((value, index) => {
+        {topProducts.map((product) => {
           return (
             <>
-              <div className='box d_flex top' key={index}>
-                <div className='left'>
-                  <h1>{value.title}</h1>
-                  <p>{value.desc}</p>
-                  <button className='btn-primary'>Visit Collections</button>
-                </div>
+              <div className='box d_flex top' key={product.id}>
+              <div className="left">
+                <h1>{product.name}</h1>
+                <p>{product.description}</p>
+                {product.productType === "textil" ? (
+                  <Link to='/textiles-page'>
+                    <button className='btn-primary'>{product.productType}</button>
+                  </Link>
+                ) : product.productType === "toy" ? (
+                  <Link to='/toys-page'>
+                    <button className='btn-primary'>{product.productType}</button>
+                  </Link>
+                ) : product.productType === "art" ? (
+                  <Link to='/art-page'>
+                    <button className='btn-primary'>{product.productType}</button>
+                  </Link>
+                ): product.productType === "accessory" ? (
+                  <Link to='/accessories-page'>
+                    <button className='btn-primary'>{product.productType}</button>
+                  </Link>
+                ) : product.productType === "decoration" ? (
+                  <Link to='/decorations-page'>
+                    <button className='btn-primary'>{product.productType}</button>
+                  </Link>
+                ) : product.productType === "jewelry" ? (
+                  <Link to='/jewelry-page'>
+                    <button className='btn-primary'>{product.productType}</button>
+                  </Link>
+                ) : (
+                  <Link to='/ceramics-page'>
+                    <button className='btn-primary'>Ceramics</button>
+                  </Link>
+                )}
+              </div>
                 <div className='right'>
-                  <img src={value.cover} alt='' />
+                  <img src={product.cover} alt='' />
                 </div>
               </div>
             </>
