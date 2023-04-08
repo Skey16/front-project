@@ -2,10 +2,15 @@ import React, { useState } from "react";
 import "./style.css";
 
 const ArtCart = ({ shopItems, addToCart, search }) => {
-  const [count, setCount] = useState(0);
+  const [likedProducts, setLikedProducts] = useState([]);
+  const [isLiked, setIsLiked] = useState(false);
 
-  const increment = () => {
-    setCount(count + 1);
+  const handleLike = (productId) => {
+    const likedCount = likedProducts.filter((id) => id === productId).length;
+    if (likedCount < 1) {
+      setLikedProducts([...likedProducts, productId]);
+    }
+    setIsLiked(!isLiked);
   };
 
   return (
@@ -22,8 +27,8 @@ const ArtCart = ({ shopItems, addToCart, search }) => {
               <div className="img">
                 <img src={item.cover} alt="" />
                 <div className="product-like">
-                  <label>{count}</label> <br />
-                  <i className="fa-regular fa-heart" onClick={increment}></i>
+                  <label>{likedProducts.filter((id) => id === item.id).length}</label> <br />
+                  <i className={`fa-regular fa-heart ${likedProducts.includes(item.id) ? 'liked' : ''} ${isLiked ? 'clicked' : ''}`} onClick={() => handleLike(item.id)}></i>
                 </div>
                 <div className="info">
                   <p className="description">{item.description}</p>
