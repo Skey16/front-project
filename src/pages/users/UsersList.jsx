@@ -17,6 +17,8 @@ import { db } from "../../firebase-config";
 import {
   collection,
   getDocs,
+  addDoc,
+  updateDoc,
   deleteDoc,
   doc,
 } from "firebase/firestore";
@@ -26,8 +28,8 @@ import Swal from "sweetalert2";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import Modal from "@mui/material/Modal";
-import AddProduct from "./AddProduct";
-import EditProduct from "./EditProduct";
+import AddUsers from "./AddUsers";
+import EditUsers from "./EditUsers";
 import { useAppStore } from "../../appStore";
 import Skeleton from "@mui/material/Skeleton";
 
@@ -46,7 +48,7 @@ const style = {
 export default function UsersList() {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
-  const empCollectionRef = collection(db, "products");
+  const empCollectionRef = collection(db, "users");
   const [open, setOpen] = useState(false);
   const [editopen, setEditOpen] = useState(false);
   const [formid, setFormid] = useState("");
@@ -59,7 +61,6 @@ export default function UsersList() {
 
   useEffect(() => {
     getUsers();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const getUsers = async () => {
@@ -93,7 +94,7 @@ export default function UsersList() {
   };
 
   const deleteApi = async (id) => {
-    const userDoc = doc(db, "products", id);
+    const userDoc = doc(db, "users", id);
     await deleteDoc(userDoc);
     Swal.fire("Deleted!", "Your file has been deleted.", "success");
     getUsers();
@@ -110,26 +111,23 @@ export default function UsersList() {
   const editData = (
     id,
     ID,
+    user,
+    mail,
     name,
-    productType,
-    description,
-    price,
-    pieces,
-    likes
+    lastname,
   ) => {
     const data = {
       id: id,
       ID: ID,
+      user:user,
+      mail: mail,
       name: name,
-      productType: productType,
-      description: description,
-      price: price,
-      pieces: pieces,
-      likes: likes,
+      lastname: lastname
     };
     setFormid(data);
     handleEditOpen();
   };
+
 
   return (
     <>
@@ -141,7 +139,7 @@ export default function UsersList() {
           aria-describedby="modal-modal-description"
         >
           <Box sx={style}>
-            <AddProduct closeEvent={handleClose} />
+            <AddUsers closeEvent={handleClose} />
           </Box>
         </Modal>
         <Modal
@@ -151,7 +149,7 @@ export default function UsersList() {
           aria-describedby="modal-modal-description"
         >
           <Box sx={style}>
-            <EditProduct closeEvent={handleEditClose} fid={formid} />
+            <EditUsers closeEvent={handleEditClose} fid={formid} />
           </Box>
         </Modal>
       </div>
@@ -163,7 +161,7 @@ export default function UsersList() {
             component="div"
             sx={{ padding: "20px" }}
           >
-            Products List
+            Users List
           </Typography>
           <Divider />
           <Box height={10} />
@@ -176,7 +174,7 @@ export default function UsersList() {
               onChange={(e, v) => filterData(v)}
               getOptionLabel={(rows) => rows.name || ""}
               renderInput={(params) => (
-                <TextField {...params} size="small" label="Search Products" />
+                <TextField {...params} size="small" label="Search Users" />
               )}
             />
             <Typography
@@ -201,22 +199,16 @@ export default function UsersList() {
                     ID
                   </TableCell>
                   <TableCell align="left" style={{ minWidth: "100px" }}>
+                    User
+                  </TableCell>
+                  <TableCell align="left" style={{ minWidth: "100px" }}>
+                    Mail
+                  </TableCell>
+                  <TableCell align="left" style={{ minWidth: "100px" }}>
                     Name
                   </TableCell>
-                  <TableCell align="left" style={{ minWidth: "100px" }}>
-                    Product Type
-                  </TableCell>
-                  <TableCell align="left" style={{ minWidth: "100px" }}>
-                    Description
-                  </TableCell>
                   <TableCell align="left" style={{ wminWidth: "100px" }}>
-                    Price
-                  </TableCell>
-                  <TableCell align="left" style={{ wminWidth: "100px" }}>
-                    Pieces
-                  </TableCell>
-                  <TableCell align="left" style={{ wminWidth: "100px" }}>
-                    Likes
+                    Last Name
                   </TableCell>
                   <TableCell align="left" style={{ minWidth: "100px" }}>
                     Action
@@ -235,12 +227,10 @@ export default function UsersList() {
                         key={row.code}
                       >
                         <TableCell align="left">{row.ID}</TableCell>
+                        <TableCell align="left">{row.user}</TableCell>
+                        <TableCell align="left">{row.mail}</TableCell>
                         <TableCell align="left">{row.name}</TableCell>
-                        <TableCell align="left">{row.productType}</TableCell>
-                        <TableCell align="left">{row.description}</TableCell>
-                        <TableCell align="left">{row.price}</TableCell>
-                        <TableCell align="left">{row.pieces}</TableCell>
-                        <TableCell align="left">{row.likes}</TableCell>
+                        <TableCell align="left">{row.lastname}</TableCell>
                         <TableCell align="left">
                           <Stack spacing={2} direction="row">
                             <EditIcon
@@ -255,11 +245,10 @@ export default function UsersList() {
                                 editData(
                                   row.id,
                                   row.ID,
+                                  row.usuario,
+                                  row.correo,
                                   row.name,
-                                  row.productType,
-                                  row.price,
-                                  row.pieces,
-                                  row.likes
+                                  row.lastname,
                                 );
                               }}
                             />
@@ -297,7 +286,7 @@ export default function UsersList() {
         <Paper sx={{ wifth:"98%", overflow: "hidden", padding:"12px"}}>
           <Box height={20}/>
           <Skeleton variant="rectangular" width={"100%"} heigth={30}/>
-          <Box height={40}/>ç
+          <Box height={40}/>
           <Skeleton variant="rectangular" width={"100%"} heigth={60}/>
           <Box height={20}/>
           <Skeleton variant="rectangular" width={"100%"} heigth={60}/>

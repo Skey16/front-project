@@ -1,7 +1,10 @@
 .paddingall{
   padding: 10px 10px 10px 10px;
 }
-
+.paddingall2{
+  font-weight: bold;
+  padding: 20px 20px 20px 10px;
+}
 .pricetitle{
   font-weight: 600;
   color: white;
