@@ -8,6 +8,23 @@ const AccessoriesCart = ({ shopItems, addToCart, search }) => {
 
   const [isLiked, setIsLiked] = useState(false);
 
+  const like = async (id) => {
+    await fetch(`http://3.227.245.21:8001/api/products/${id}/like`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+    });
+
+    setListaFiltrada(
+      listaFiltrada.map((p = listaFiltrada) => {
+        if (p.id === id) {
+          p.likes++;
+        }
+
+        return p;
+      })
+    );
+  };
+
   const getProducts = async () => {
     const response = await fetch("http://3.227.245.21:8001/api/products");
     const data = await response.json();
@@ -46,15 +63,13 @@ const AccessoriesCart = ({ shopItems, addToCart, search }) => {
             <div className="img">
               <img src={value.image} alt="" />
               <div className="product-like">
-                <label>
-                  {likedProducts.filter((id) => id === value.id).length}
-                </label>
+                <label>{value.likes}</label>
                 <br />
                 <i
                   className={`fa-regular fa-heart ${
                     likedProducts.includes(value.id) ? "liked" : ""
                   } ${isLiked ? "clicked" : ""}`}
-                  onClick={() => handleLike(value.id)}
+                  onClick={() => like(value.id)}
                 ></i>
               </div>
               <div className="info">
