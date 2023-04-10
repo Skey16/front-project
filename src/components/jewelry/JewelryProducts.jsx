@@ -16,7 +16,7 @@ const JewelryProducts = ({ search }) => {
   };
 
   const getProducts = async () => {
-    const response = await fetch("http://44.201.142.37:8000/api/products");
+    const response = await fetch("http://3.227.245.21:8001/api/products");
     const data = await response.json();
     return data;
   };

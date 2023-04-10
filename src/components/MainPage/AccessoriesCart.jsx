@@ -1,9 +1,30 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./style.css";
 
 const AccessoriesCart = ({ shopItems, addToCart, search }) => {
+  const [listaFiltrada, setListaFiltrada] = useState([]);
+
   const [likedProducts, setLikedProducts] = useState([]);
+
   const [isLiked, setIsLiked] = useState(false);
+
+  const getProducts = async () => {
+    const response = await fetch("http://3.227.245.21:8001/api/products");
+    const data = await response.json();
+    return data;
+  };
+
+  const filtrar = async (search) => {
+    const data = await getProducts();
+    const filtrado = data.filter(
+      (producto) =>
+        (producto.name.toLowerCase().includes(search.toLowerCase()) &&
+          producto.product_type === "ropa") ||
+        (producto.name.toLowerCase().includes(search.toLowerCase()) &&
+          producto.product_type === "libros")
+    );
+    setListaFiltrada(filtrado);
+  };
 
   const handleLike = (productId) => {
     const likedCount = likedProducts.filter((id) => id === productId).length;
@@ -13,40 +34,48 @@ const AccessoriesCart = ({ shopItems, addToCart, search }) => {
     setIsLiked(!isLiked);
   };
 
+  useEffect(() => {
+    filtrar(search);
+  }, [search]);
+
   return (
     <>
-      {shopItems
-        .filter(
-          (item) =>
-            item.productType === "accessory" &&
-            item.name.toLowerCase().includes(search.toLowerCase())
-        )
-        .map((item, index) => (
-          <div className="box" key={index}>
-            <div className="product mtop">
-              <div className="img">
-                <img src={item.cover} alt="" />
-                <div className="product-like">
-                  <label>{likedProducts.filter((id) => id === item.id).length}</label> <br />
-                  <i className={`fa-regular fa-heart ${likedProducts.includes(item.id) ? 'liked' : ''} ${isLiked ? 'clicked' : ''}`} onClick={() => handleLike(item.id)}></i>
-                </div>
-                <div className="info">
-                  <p className="description">{item.description}</p>
-                </div>
+      {listaFiltrada.map((value, index) => (
+        <div className="box" key={index}>
+          <div className="product mtop">
+            <div className="img">
+              <img src={value.image} alt="" />
+              <div className="product-like">
+                <label>
+                  {likedProducts.filter((id) => id === value.id).length}
+                </label>
+                <br />
+                <i
+                  className={`fa-regular fa-heart ${
+                    likedProducts.includes(value.id) ? "liked" : ""
+                  } ${isLiked ? "clicked" : ""}`}
+                  onClick={() => handleLike(value.id)}
+                ></i>
               </div>
-              <div className="product-details">
-                <h3>{item.name}</h3>
-                <div className="rate"></div>
-                <div className="price">
-                  <h4>${item.price}.00 </h4>
-                  <button onClick={() => addToCart(item)}>
-                    <i className="fa fa-plus"></i>
-                  </button>
-                </div>
+              <div className="info">
+                <p className="description">{value.description}</p>
+              </div>
+            </div>
+            <div className="product-details">
+              <br />
+              <h3>
+                <b>{value.name}</b>
+              </h3>
+              <div className="price">
+                <h4>${value.price}.00 </h4>
+                <button onClick={() => addToCart(value)}>
+                  <i className="fa fa-plus"></i>
+                </button>
               </div>
             </div>
           </div>
-        ))}
+        </div>
+      ))}
     </>
   );
 };

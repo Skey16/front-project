@@ -10,7 +10,7 @@ const AccessoriesPage = ({ addToCart, shopItems, search }) => {
           <div className="contentWidth">
             <div className="heading d_flex">
               <div className="heading-left row  f_flex">
-                <h2>Accessories</h2>
+                <h2>Ropa y Accesorios</h2>
               </div>
             </div>
             <div className="product-content  grid1">
