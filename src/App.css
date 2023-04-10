@@ -13,7 +13,7 @@ body {
 }
 .background {
   background: #f6f9fc;
-  padding: 50px 0;
+  padding: 35px 0;
 }
 .container {
   max-width: 90%;
@@ -77,7 +77,7 @@ button {
   box-shadow: rgb(43 52 69 / 10%) 0px 4px 16px;
   background-color: #fff;
   width: 23%;
-  height: 370px;
+  height: 100%;
   padding: 15px 0;
   border-radius: 5px;
   margin-top: 85px;
@@ -90,7 +90,6 @@ button {
 }
 .category span {
   margin: 10px 20px;
-  text-transform: capitalize;
 }
 .category .box {
   transition: 0.5s;
