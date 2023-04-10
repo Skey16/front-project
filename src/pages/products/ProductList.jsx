@@ -241,7 +241,9 @@ export default function UsersList() {
                         <TableCell align="left">{row.name}</TableCell>
                         <TableCell align="left">{row.description}</TableCell>
                         <TableCell align="left">{row.product_type}</TableCell>
-                        <TableCell align="left">{row.image}</TableCell>
+                        <TableCell align="left">
+                          <img src={row.image} width={70} />
+                        </TableCell>
                         <TableCell align="left">{row.price}</TableCell>
                         <TableCell align="left">{row.stock}</TableCell>
                         <TableCell align="left">{row.likes}</TableCell>
@@ -254,7 +256,7 @@ export default function UsersList() {
                                 cursor: "pointer",
                               }}
                               className="cursor-pointer"
-                              // onClick={() => editUser(row.id)}
+                              // onClick={() => editUser(row.id)}ñ
                               onClick={() => {
                                 editData(
                                   row.id,
