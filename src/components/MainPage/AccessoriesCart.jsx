@@ -23,6 +23,8 @@ const AccessoriesCart = ({ shopItems, addToCart, search }) => {
         return p;
       })
     );
+
+    getProducts();
   };
 
   const getProducts = async () => {
