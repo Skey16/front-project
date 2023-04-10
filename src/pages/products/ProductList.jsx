@@ -14,12 +14,7 @@ import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import { db } from "../../firebase-config";
-import {
-  collection,
-  getDocs,
-  deleteDoc,
-  doc,
-} from "firebase/firestore";
+import { collection, getDocs, deleteDoc, doc } from "firebase/firestore";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Swal from "sweetalert2";
@@ -46,7 +41,6 @@ const style = {
 export default function UsersList() {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
-  const empCollectionRef = collection(db, "products");
   const [open, setOpen] = useState(false);
   const [editopen, setEditOpen] = useState(false);
   const [formid, setFormid] = useState("");
@@ -59,12 +53,15 @@ export default function UsersList() {
 
   useEffect(() => {
     getUsers();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const getUsers = async () => {
-    const data = await getDocs(empCollectionRef);
-    setRows(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    const data = await (
+      await fetch("http://44.201.142.37:8000/api/products")
+    ).json();
+
+    setRows(data);
   };
 
   const handleChangePage = (event, newPage) => {
@@ -78,13 +75,14 @@ export default function UsersList() {
 
   const deleteUser = (id) => {
     Swal.fire({
-      title: "Are you sure?",
-      text: "You won't be able to revert this!",
+      title: "¿Estás seguro?",
+      text: "¡No podrás revertir esto!",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!",
+      confirmButtonText: "Sí, Bórralo",
+      cancelButtonText: "Cancelar",
     }).then((result) => {
       if (result.value) {
         deleteApi(id);
@@ -93,9 +91,11 @@ export default function UsersList() {
   };
 
   const deleteApi = async (id) => {
-    const userDoc = doc(db, "products", id);
-    await deleteDoc(userDoc);
-    Swal.fire("Deleted!", "Your file has been deleted.", "success");
+    await fetch(`http://44.201.142.37:8000/api/products/${id}`, {
+      method: "DELETE",
+    });
+
+    Swal.fire("¡Eliminado!", "Tu producto ha sido eliminado.", "success");
     getUsers();
   };
 
@@ -109,23 +109,21 @@ export default function UsersList() {
 
   const editData = (
     id,
-    ID,
     name,
-    productType,
     description,
+    product_type,
+    image,
     price,
-    pieces,
-    likes
+    stock
   ) => {
     const data = {
       id: id,
-      ID: ID,
       name: name,
-      productType: productType,
       description: description,
+      product_type: product_type,
+      image: image,
       price: price,
-      pieces: pieces,
-      likes: likes,
+      stock: stock,
     };
     setFormid(data);
     handleEditOpen();
@@ -163,7 +161,7 @@ export default function UsersList() {
             component="div"
             sx={{ padding: "20px" }}
           >
-            Products List
+            Lista de productos
           </Typography>
           <Divider />
           <Box height={10} />
@@ -176,7 +174,11 @@ export default function UsersList() {
               onChange={(e, v) => filterData(v)}
               getOptionLabel={(rows) => rows.name || ""}
               renderInput={(params) => (
-                <TextField {...params} size="small" label="Search Products" />
+                <TextField
+                  {...params}
+                  size="small"
+                  label="Buscar productos..."
+                />
               )}
             />
             <Typography
@@ -189,7 +191,7 @@ export default function UsersList() {
               endIcon={<AddCircleIcon />}
               onClick={handleOpen}
             >
-              Add
+              Agregar
             </Button>
           </Stack>
           <Box height={10} />
@@ -201,25 +203,28 @@ export default function UsersList() {
                     ID
                   </TableCell>
                   <TableCell align="left" style={{ minWidth: "100px" }}>
-                    Name
+                    Nombre
                   </TableCell>
                   <TableCell align="left" style={{ minWidth: "100px" }}>
-                    Product Type
+                    Descripción
                   </TableCell>
                   <TableCell align="left" style={{ minWidth: "100px" }}>
-                    Description
+                    Categoria
                   </TableCell>
                   <TableCell align="left" style={{ wminWidth: "100px" }}>
-                    Price
+                    Imagen
                   </TableCell>
                   <TableCell align="left" style={{ wminWidth: "100px" }}>
-                    Pieces
+                    Precio
+                  </TableCell>
+                  <TableCell align="left" style={{ wminWidth: "100px" }}>
+                    Stock
                   </TableCell>
                   <TableCell align="left" style={{ wminWidth: "100px" }}>
                     Likes
                   </TableCell>
                   <TableCell align="left" style={{ minWidth: "100px" }}>
-                    Action
+                    Acción
                   </TableCell>
                 </TableRow>
               </TableHead>
@@ -234,12 +239,13 @@ export default function UsersList() {
                         tabIndex={-1}
                         key={row.code}
                       >
-                        <TableCell align="left">{row.ID}</TableCell>
+                        <TableCell align="left">{row.id}</TableCell>
                         <TableCell align="left">{row.name}</TableCell>
-                        <TableCell align="left">{row.productType}</TableCell>
                         <TableCell align="left">{row.description}</TableCell>
+                        <TableCell align="left">{row.product_type}</TableCell>
+                        <TableCell align="left">{row.image}</TableCell>
                         <TableCell align="left">{row.price}</TableCell>
-                        <TableCell align="left">{row.pieces}</TableCell>
+                        <TableCell align="left">{row.stock}</TableCell>
                         <TableCell align="left">{row.likes}</TableCell>
                         <TableCell align="left">
                           <Stack spacing={2} direction="row">
@@ -254,12 +260,12 @@ export default function UsersList() {
                               onClick={() => {
                                 editData(
                                   row.id,
-                                  row.ID,
                                   row.name,
-                                  row.productType,
+                                  row.description,
+                                  row.product_type,
+                                  row.image,
                                   row.price,
-                                  row.pieces,
-                                  row.likes
+                                  row.stock
                                 );
                               }}
                             />
@@ -287,28 +293,29 @@ export default function UsersList() {
             count={rows.length}
             rowsPerPage={rowsPerPage}
             page={page}
+            labelRowsPerPage={"Filas por página:"}
             onPageChange={handleChangePage}
             onRowsPerPageChange={handleChangeRowsPerPage}
           />
         </Paper>
       )}
-      {rows.length === 0 &&(
+      {rows.length === 0 && (
         <>
-        <Paper sx={{ wifth:"98%", overflow: "hidden", padding:"12px"}}>
-          <Box height={20}/>
-          <Skeleton variant="rectangular" width={"100%"} heigth={30}/>
-          <Box height={40}/>ç
-          <Skeleton variant="rectangular" width={"100%"} heigth={60}/>
-          <Box height={20}/>
-          <Skeleton variant="rectangular" width={"100%"} heigth={60}/>
-          <Box height={20}/>
-          <Skeleton variant="rectangular" width={"100%"} heigth={60}/>
-          <Box height={20}/>
-          <Skeleton variant="rectangular" width={"100%"} heigth={60}/>
-          <Box height={20}/>
-          <Skeleton variant="rectangular" width={"100%"} heigth={60}/>
-          <Box height={20}/>
-        </Paper>
+          <Paper sx={{ wifth: "98%", overflow: "hidden", padding: "12px" }}>
+            <Box height={20} />
+            <Skeleton variant="rectangular" width={"100%"} heigth={30} />
+            <Box height={40} />ç
+            <Skeleton variant="rectangular" width={"100%"} heigth={60} />
+            <Box height={20} />
+            <Skeleton variant="rectangular" width={"100%"} heigth={60} />
+            <Box height={20} />
+            <Skeleton variant="rectangular" width={"100%"} heigth={60} />
+            <Box height={20} />
+            <Skeleton variant="rectangular" width={"100%"} heigth={60} />
+            <Box height={20} />
+            <Skeleton variant="rectangular" width={"100%"} heigth={60} />
+            <Box height={20} />
+          </Paper>
         </>
       )}
     </>

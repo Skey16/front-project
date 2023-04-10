@@ -113,7 +113,7 @@ export default function Sidenav() {
               >
                 <HomeIcon />
               </ListItemIcon>
-              <ListItemText primary="Home" sx={{ opacity: open ? 1 : 0 }} />
+              <ListItemText primary="Dashboard" sx={{ opacity: open ? 1 : 0 }} />
             </ListItemButton>
           </ListItem>
           <ListItem
@@ -139,7 +139,7 @@ export default function Sidenav() {
               >
                 <ShoppingCartIcon />
               </ListItemIcon>
-              <ListItemText primary="Products" sx={{ opacity: open ? 1 : 0 }} />
+              <ListItemText primary="Productos" sx={{ opacity: open ? 1 : 0 }} />
             </ListItemButton>
           </ListItem>
           <ListItem
@@ -165,7 +165,7 @@ export default function Sidenav() {
               >
                 <PeopleIcon />
               </ListItemIcon>
-              <ListItemText primary="Users" sx={{ opacity: open ? 1 : 0 }} />
+              <ListItemText primary="Usuarios" sx={{ opacity: open ? 1 : 0 }} />
             </ListItemButton>
           </ListItem>
           <ListItem
@@ -191,7 +191,7 @@ export default function Sidenav() {
               >
                 <SettingsIcon />
               </ListItemIcon>
-              <ListItemText primary="Settings" sx={{ opacity: open ? 1 : 0 }} />
+              <ListItemText primary="Configuración" sx={{ opacity: open ? 1 : 0 }} />
             </ListItemButton>
           </ListItem>
         </List>

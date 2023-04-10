@@ -11,6 +11,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import MoreIcon from "@mui/icons-material/MoreVert";
 import { useAppStore } from "../appStore";
+import { useNavigate } from "react-router-dom";
 
 const AppBar = styled(
   MuiAppBar,
@@ -24,6 +25,7 @@ const AppBar = styled(
 
 
 export default function Navbar() {
+  const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
   const updateOpen = useAppStore((state) => state.updateOpen);
@@ -58,8 +60,10 @@ export default function Navbar() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>Log out</MenuItem>
+      <MenuItem onClick={() => {
+              navigate("/settings");
+            }}>Perfil</MenuItem>
+      <MenuItem onClick={handleMenuClose}>Cerrar Sesión</MenuItem>
     </Menu>
   );
 
@@ -111,7 +115,7 @@ export default function Navbar() {
             fontFamily={"nano"}
             sx={{ display: { xs: "none", sm: "block" } }}
           >
-            ambar
+            AMBAR
           </Typography>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: "none", md: "flex" } }}>

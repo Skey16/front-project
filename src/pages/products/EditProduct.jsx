@@ -8,14 +8,10 @@ import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 import { Button } from "@mui/material";
 import InputAdornment from "@mui/material/InputAdornment";
-import { collection, updateDoc,addDoc, getDocs, doc, get } from "firebase/firestore";
-import { db } from "../../firebase-config";
 import Swal from "sweetalert2";
 import { useAppStore } from "../../appStore";
-/* import Button from "@mui/material/Button"; */
-//import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
 
-export default function EditProduct({fid, closeEvent }) {
+export default function EditProduct({ fid, closeEvent }) {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [pieces, setPieces] = useState(0);
@@ -23,11 +19,9 @@ export default function EditProduct({fid, closeEvent }) {
   const [likes, setLikes] = useState(0);
   const [ID, setID] = useState(0);
   const [productType, setProductType] = useState("");
-  const setRows = useAppStore((state)=> state.setRows);
-  const empCollectionRef = collection(db, "products");
+  const setRows = useAppStore((state) => state.setRows);
 
-
-  useEffect(()=>{
+  useEffect(() => {
     console.log("FID: " + fid.id);
     setID(fid.ID);
     setName(fid.name);
@@ -36,7 +30,7 @@ export default function EditProduct({fid, closeEvent }) {
     setPrice(fid.price);
     setLikes(fid.likes);
     setProductType(fid.productType);
-  },[]);
+  }, []);
 
   const handleNameChange = (event) => {
     setName(event.target.value);
@@ -61,33 +55,19 @@ export default function EditProduct({fid, closeEvent }) {
     setID(event.target.value);
   };
 
-  const createUser = async () => {
-    const userDoc = doc(db, "products",fid.id);
-    const newFields = {
-      ID: Number(ID),
-      name: name,
-      productType: productType,
-      description: description,
-      price: Number(price),
-      pieces: Number(pieces),
-      likes: Number(likes),
-    }
-    await updateDoc(userDoc,newFields);
+  const updateUser = async () => {
     getUsers();
     closeEvent();
     Swal.fire("Submitted!", "You file has been update.", "success");
   };
 
-  const getUsers = async () => {
-    const data = await getDocs(empCollectionRef);
-    setRows(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-  };
+  const getUsers = async () => {};
 
   return (
     <>
       <Box sx={{ m: 2 }} />
       <Typography variant="h5" align="center">
-       Edit Product
+        Edit Product
       </Typography>
       <IconButton
         style={{ position: "absolute", top: "0", right: "0" }}
@@ -185,13 +165,13 @@ export default function EditProduct({fid, closeEvent }) {
         </Grid>
         <Grid item xs={12}>
           <Typography variant="h5" align="center">
-            <Button variant="contained" onClick={createUser}>
-              Add
+            <Button variant="contained" onClick={updateUser}>
+              Actualizar
             </Button>
           </Typography>
         </Grid>
       </Grid>
-      <Box sx={{ m: 4 }} />
+      <Box sx={{ m: 2 }} />
     </>
   );
 }
