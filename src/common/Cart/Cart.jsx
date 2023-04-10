@@ -1,84 +1,101 @@
-import React from "react"
-import { Link } from "react-router-dom"
-import "./style.css"
-import "slick-carousel/slick/slick.css"
-import "slick-carousel/slick/slick-theme.css"
+import React from "react";
+import { Link } from "react-router-dom";
+import "./style.css";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 const Cart = ({ CartItem, addToCart, decreaseQty, deleteAll }) => {
-  // Stpe: 7   calucate total of items
-  const totalPrice = CartItem.reduce((price, item) => price + item.qty * item.price, 0)
-  
-  // prodcut qty total
+  // Paso 7: calcular el total de los artículos
+  const totalPrice = CartItem.reduce(
+    (price, item) => price + item.qty * item.price,
+    0
+  );
+
+  // total de la cantidad de productos
   return (
     <>
-      <section className='cart-items'>
-        <div className='container d_flex'>
-          {/* if hamro cart ma kunai pani item xaina bhane no diplay */}
+      <sección className="artículos-del-carrito">
+        <div className="container d_flex">
+          {/* si no hay ningún artículo en nuestro carrito, no lo mostramos */}
+          <div className="detalles-del-carrito">
+            {CartItem.length === 0 && (
+              <h1 className="no-items product">
+                No se han agregado artículos al carrito
+              </h1>
+            )}
 
-          <div className='cart-details'>
-            {CartItem.length === 0 && <h1 className='no-items product'>No Items are add in Cart</h1>}
-
-            {/* yasma hami le cart item lai display garaaxa */}
+            {/* aquí mostramos los elementos del carrito */}
             {CartItem.map((item) => {
-              const productQty = item.price * item.qty
+              const productQty = item.price * item.qty;
 
               return (
-                <div className='cart-list product d_flex' key={item.id}>
-                  <div className='img'>
-                    <img src={item.cover} alt='' />
+                <div className="lista-del-carrito product d_flex" key={item.id}>
+                  <div className="img">
+                    <img src={item.cover} alt="" />
                   </div>
-                  <div className='cart-details'>
+                  <div className="detalles-del-carrito">
                     <h3>{item.name}</h3>
                     <h4>
                       ${item.price}.00 * {item.qty}
                       <span>${productQty}.00</span>
                     </h4>
                   </div>
-                  <div className='cart-items-function'>
-                    <div className='removeCart'>
-                      <button className='removeCart' onClick={() => deleteAll(item)}>
-                        <i className='fa-solid fa-xmark'></i>
+                  <div className="funciones-del-carrito">
+                    <div className="eliminar-del-carrito">
+                      <button
+                        className="eliminar-del-carrito"
+                        onClick={() => deleteAll(item)}
+                      >
+                        <i className="fa-solid fa-xmark"></i>
                       </button>
                     </div>
-                    {/* stpe: 5 
-                    product ko qty lai inc ra des garne
-                    */}
-                    <div className='cartControl d_flex'>
-                      <button className='incCart' onClick={() => addToCart(item)}>
-                        <i className='fa-solid fa-plus'></i>
+                    {/* paso 5 
+                aumentar o disminuir la cantidad del producto
+                */}
+                    <div className="control-del-carrito d_flex">
+                      <button
+                        className="aumentar-del-carrito"
+                        onClick={() => addToCart(item)}
+                      >
+                        <i className="fa-solid fa-plus"></i>
                       </button>
-                      <button className='desCart' onClick={() => decreaseQty(item)}>
-                        <i className='fa-solid fa-minus'></i>
+                      <button
+                        className="disminuir-del-carrito"
+                        onClick={() => decreaseQty(item)}
+                      >
+                        <i className="fa-solid fa-minus"></i>
                       </button>
                     </div>
                   </div>
 
-                  <div className='cart-item-price'></div>
+                  <div className="precio-del-artículo"></div>
                 </div>
-              )
+              );
             })}
           </div>
 
-          <div className='cart-total product'>
-            <h2>Cart Summary</h2>
-            <div className=' d_flex'>
-              <h4>Total Price :</h4>
+          <div className="total-del-carrito product">
+            <h2>Resumen del carrito</h2>
+            <div className=" d_flex">
+              <h4>Precio total:</h4>
               <h3>${totalPrice}.00</h3>
             </div>
             <div>
-              { CartItem.length === 0 ? (
-                <button className='btn-secundary' disabled>Buy now</button>
+              {CartItem.length === 0 ? (
+                <button className="btn-secundary" disabled>
+                  Comprar ahora
+                </button>
               ) : (
-                <Link to='/checkout-page' >
-                  <button className='btn-primary'>Buy now</button>
+                <Link a="/pagina-de-pago">
+                  <button className="btn-primary">Comprar ahora</button>
                 </Link>
               )}
             </div>
           </div>
         </div>
-      </section>
+      </sección>
     </>
-  )
-}
+  );
+};
 
-export default Cart
+export default Cart;
