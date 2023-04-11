@@ -89,12 +89,27 @@ export default function UsersList() {
   };
 
   const deleteApi = async (id) => {
-    await fetch(`http://44.201.142.37:8000/api/products/${id}`, {
-      method: "DELETE",
-    });
+    const response = await fetch(
+      `http://44.201.142.37:8000/api/products/${id}`,
+      {
+        method: "DELETE",
+      }
+    );
 
-    Swal.fire("¡Eliminado!", "Tu producto ha sido eliminado.", "success");
+    if (response.status === 429) {
+      getUsers();
+      closeEvent();
+      Swal.fire(
+        "¡Error!",
+        "Se ha alcanzado el límite de solicitudes. Inténtalo más tarde.",
+        "error"
+      );
+      return;
+    }
+
     getUsers();
+    closeEvent();
+    Swal.fire("¡Eliminado!", "Tu producto ha sido eliminado.", "success");
   };
 
   const filterData = (v) => {

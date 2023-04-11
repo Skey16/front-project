@@ -70,18 +70,32 @@ export default function EditProduct({ fid, closeEvent }) {
       closeEvent();
       Swal.fire("¡Error!", "Por favor completa todos los campos.", "error");
     } else {
-      await fetch(`http://44.201.142.37:8000/api/products/${id}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name,
-          description,
-          product_type,
-          image,
-          price,
-          stock,
-        }),
-      });
+      const response = await fetch(
+        `http://44.201.142.37:8000/api/products/${id}`,
+        {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            name,
+            description,
+            product_type,
+            image,
+            price,
+            stock,
+          }),
+        }
+      );
+
+      if (response.status === 429) {
+        getUsers();
+        closeEvent();
+        Swal.fire(
+          "¡Error!",
+          "Se ha alcanzado el límite de solicitudes. Inténtalo más tarde.",
+          "error"
+        );
+        return;
+      }
 
       getUsers();
       closeEvent();

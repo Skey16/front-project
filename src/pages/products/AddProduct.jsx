@@ -54,7 +54,7 @@ export default function AddProduct({ closeEvent }) {
       closeEvent();
       Swal.fire("¡Error!", "Por favor completa todos los campos.", "error");
     } else {
-      await fetch("http://44.201.142.37:8000/api/products", {
+      const response = await fetch("http://44.201.142.37:8000/api/products", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -67,13 +67,20 @@ export default function AddProduct({ closeEvent }) {
         }),
       });
 
+      if (response.status === 429) {
+        getUsers();
+        closeEvent();
+        Swal.fire(
+          "¡Error!",
+          "Se ha alcanzado el límite de solicitudes. Inténtalo más tarde.",
+          "error"
+        );
+        return;
+      }
+
       getUsers();
       closeEvent();
-      Swal.fire(
-        "¡Agregado!",
-        "El producto ha sido añadido correctamente.",
-        "success"
-      );
+      Swal.fire("¡Agregado!", "Tu producto ha sido agregado.", "success");
     }
   };
 
