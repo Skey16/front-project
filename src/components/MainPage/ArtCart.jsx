@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import Swal from "sweetalert2";
 import "./style.css";
 
 const ArtCart = ({ shopItems, addToCart, search }) => {
@@ -9,10 +10,22 @@ const ArtCart = ({ shopItems, addToCart, search }) => {
   const [isLiked, setIsLiked] = useState(false);
 
   const like = async (id) => {
-    await fetch(`http://3.227.245.21:8001/api/products/${id}/like`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-    });
+    const response = await fetch(
+      `http://3.227.245.21:8001/api/products/${id}/like`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+      }
+    );
+
+    if (response.status === 429) {
+      Swal.fire(
+        "¡Error!",
+        "Se ha alcanzado el límite de solicitudes. Inténtalo más tarde.",
+        "error"
+      );
+      return;
+    }
 
     setListaFiltrada(
       listaFiltrada.map((p = listaFiltrada) => {
