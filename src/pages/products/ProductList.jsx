@@ -98,7 +98,6 @@ export default function UsersList() {
 
     if (response.status === 429) {
       getUsers();
-      closeEvent();
       Swal.fire(
         "¡Error!",
         "Se ha alcanzado el límite de solicitudes. Inténtalo más tarde.",
@@ -108,7 +107,6 @@ export default function UsersList() {
     }
 
     getUsers();
-    closeEvent();
     Swal.fire("¡Eliminado!", "Tu producto ha sido eliminado.", "success");
   };
 
